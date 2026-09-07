@@ -15,19 +15,19 @@ I think this will be an interesting game because it challenges the player to lea
   >Display four possible answers: A, B, C, and D.    
   >Ask the player to enter an answer.    
   >Check that the answer is valid.    
-  >Compare the player's answer with the correct answer.   
+  >Compare the player's answer with the correct answer.       
 7.If the answer is correct:     
-  >Display "Correct!"    
+  >Display "Correct!"         
 8.If the answer is incorrect:    
-  >Display "Incorrect."    
-9.Continue until the player has answered all 5 questions in the level.    
-10.Count how many questions were answered correctly during that level.    
-11. If the player answered at least 3 out of 5 questions correctly:    
+  >Display "Incorrect."         
+9.Continue until the player has answered all 5 questions in the level.        
+10.Count how many questions were answered correctly during that level.         
+11. If the player answered at least 3 out of 5 questions correctly:          
   >Show: You can move on!!    
-12.If the player answered fewer than 3 questions correctly:        
+12.If the player answered fewer than 3 questions correctly:            
   >Show: Go back!!!!!!         
-13.Repeat the process for the Easy, Medium, and Hard levels.    
-14.After completing all three levels, display the final results:    
+13.Repeat the process for the Easy, Medium, and Hard levels.        
+14.After completing all three levels, display the final results:         
   >Total correct answers    
   >Total incorrect answers    
   >Final score    
