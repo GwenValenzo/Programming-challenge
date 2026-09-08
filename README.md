@@ -15,7 +15,7 @@ I think this will be an interesting game because it challenges the player to lea
   >Display four possible answers: A, B, C, and D.    
   >Ask the player to enter an answer.    
   >Check that the answer is valid.    
-  >Compare the player's answer with the correct answer.       
+  >Compare the player's answer with the correct answer.    
 7.If the answer is correct:     
   >Display "Correct!"         
 8.If the answer is incorrect:    
