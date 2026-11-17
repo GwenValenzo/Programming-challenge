@@ -1,0 +1,11 @@
+Easy questions
+What is the capital of France?, Paris, Madrid, Rome, Berlin
+What planet is known as the Red Planet?, Mars, Venus, Jupiter, Saturn
+How many continents are there?, 7, 5, 6, 8
+Which animal is the largest mammal?, Blue whale, Elephant, Giraffe, Shark
+What is 8 x 7?, 56, 48, 54, 64
+Which ocean is the largest?, Pacific Ocean, Atlantic Ocean, Indian Ocean, Arctic Ocean
+Which country is famous for the pyramids of Giza?, Egypt, Mexico, India, Greece
+How many days are there in a normal year?, 365, 360, 364, 366
+Which gas do humans need to breathe?, Oxygen, Carbon dioxide, Hydrogen, Nitrogen
+Which programming language are we using for this project?, Python, Java, C++, Swift

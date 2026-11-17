@@ -1,0 +1,10 @@
+What is the chemical symbol for gold?, Au, Ag, Gd, Go
+Who painted the Mona Lisa?, Leonardo da Vinci, Michelangelo, Raphael, Picasso
+Which is the largest country by area?, Russia, Canada, China, United States
+How many bones does an adult human have?, 206, 106, 256, 306
+What is the square root of 144?, 12, 10, 14, 16
+What is the capital of Japan?, Tokyo, Seoul, Beijing, Bangkok
+What is the hardest natural substance?, Diamond, Gold, Iron, Quartz
+In what year did World War II end?, 1945, 1918, 1939, 1950
+Which language has the most native speakers?, Mandarin Chinese, English, Spanish, Hindi
+Which Python keyword is used to define a function?, def, func, define, function
