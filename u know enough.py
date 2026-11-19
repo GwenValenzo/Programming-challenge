@@ -9,44 +9,44 @@ TOTAL_QUESTIONS = 10
 
 LEVEL_NAMES = ["EASY", "MEDIUM", "HARD"]
 
-easy_questions = [
-    ["What is the capital of France?", "Paris", "Madrid", "Rome", "Berlin"],
-    ["What planet is known as the Red Planet?", "Mars", "Venus", "Jupiter", "Saturn"],
-    ["How many continents are there?", "7", "5", "6", "8"],
-    ["Which animal is the largest mammal?", "Blue whale", "Elephant", "Giraffe", "Shark"],
-    ["What is 8 x 7?", "56", "48", "54", "64"],
-    ["Which ocean is the largest?", "Pacific Ocean", "Atlantic Ocean", "Indian Ocean", "Arctic Ocean"],
-    ["Which country is famous for the pyramids of Giza?", "Egypt", "Mexico", "India", "Greece"],
-    ["How many days are there in a normal year?", "365", "360", "364", "366"],
-    ["Which gas do humans need to breathe?", "Oxygen", "Carbon dioxide", "Hydrogen", "Nitrogen"],
-    ["Which programming language are we using for this project?", "Python", "Java", "C++", "Swift"],
-]
+easy_questions = []
+with open ("easyquestions.txt", "r") as file:
+    for linea in file:
+        linea = linea.strip()
+        if linea == "" or "," not in linea:
+            continue                      # skip the title and blank lines
+        parts = linea.split(",")
+        row = []
+        for part in parts:
+            row.append(part.strip())
+        easy_questions.append(row)
 
-medium_questions = [
-    ["What is the chemical symbol for gold?", "Au", "Ag", "Gd", "Go"],
-    ["Who painted the Mona Lisa?", "Leonardo da Vinci", "Michelangelo", "Raphael", "Picasso"],
-    ["Which is the largest country by area?", "Russia", "Canada", "China", "United States"],
-    ["How many bones does an adult human have?", "206", "106", "256", "306"],
-    ["What is the square root of 144?", "12", "10", "14", "16"],
-    ["What is the capital of Japan?", "Tokyo", "Seoul", "Beijing", "Bangkok"],
-    ["What is the hardest natural substance?", "Diamond", "Gold", "Iron", "Quartz"],
-    ["In what year did World War II end?", "1945", "1918", "1939", "1950"],
-    ["Which language has the most native speakers?", "Mandarin Chinese", "English", "Spanish", "Hindi"],
-    ["Which Python keyword is used to define a function?", "def", "func", "define", "function"],
-]
+    
 
-hard_questions = [
-    ["What is the capital of Australia?", "Canberra", "Sydney", "Melbourne", "Perth"],
-    ["What is the approximate speed of light?", "300,000 km/s", "150,000 km/s", "450,000 km/s", "1,000,000 km/s"],
-    ["Who wrote Don Quixote?", "Miguel de Cervantes", "Lope de Vega", "Jorge Luis Borges", "Gabriel Garcia Marquez"],
-    ["What is the smallest prime number?", "2", "0", "1", "3"],
-    ["What is the atomic number of carbon?", "6", "4", "8", "12"],
-    ["In what year did the Berlin Wall fall?", "1989", "1987", "1991", "1993"],
-    ["What is the binary number 1010 in decimal?", "10", "8", "12", "14"],
-    ["Which Python data type is immutable?", "tuple", "list", "dict", "set"],
-    ["Who developed the theory of general relativity?", "Albert Einstein", "Isaac Newton", "Galileo Galilei", "Niels Bohr"],
-    ["Which organ produces insulin?", "Pancreas", "Liver", "Kidney", "Stomach"],
-]
+medium_questions = []
+with open ("mediumquestions.txt", "r") as file:
+    for linea in file:
+        linea = linea.strip()
+        if linea == "" or "," not in linea:
+            continue                      # skip the title and blank lines
+        parts = linea.split(",")
+        row = []
+        for part in parts:
+            row.append(part.strip())
+        medium_questions.append(row)
+
+
+hard_questions = []
+with open ("hardquestions.txt", "r") as file:
+    for linea in file:
+        linea = linea.strip()
+        if linea == "" or "," not in linea:
+            continue                      # skip the title and blank lines
+        parts = linea.split(",")
+        row = []
+        for part in parts:
+            row.append(part.strip())
+        hard_questions.append(row)
 
 all_levels = [easy_questions, medium_questions, hard_questions]
 
