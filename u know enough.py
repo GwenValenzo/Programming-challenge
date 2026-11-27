@@ -1,4 +1,11 @@
-"""U KNOW ENOUGH? - A quiz game with three levels."""
+# U KNOW ENOUGH?
+
+# Quiz game of general knowledge with three levels (Easy, Medium
+# and Hard). The questions are loaded from text files, 10 random questions
+# are asked per level, and the player earns points for correct answers and
+# for streaks. The player needs 60% to pass a level and unlock the next
+# one. Every result is saved in a history file, and the player can check
+# the game history and a Top 5 ranking.
 
 import math
 import random
@@ -21,15 +28,15 @@ LEVEL_FILES = [
 ]
 
 # FILES
-# Opens one question file and reads it line by line, splits each line by "|" and removes extra spaces from every part.
-# Returns the matrix of questions (a list of lists).
+# Functionality: Reads one question file and builds a matrix of questions.
+# Input: filename (string), the name of the text file to read.
+# Process: Opens the file and reads it line by line. Splits each line by
+#   "|", removes extra spaces and keeps only the lines with exactly 5
+#   parts (titles and blank lines are skipped). If the file does not
+#   exist, it prints an error message.
+# Output: Matrix (list of lists). Each row = [question, correct answer,
+#   wrong answer 1, wrong answer 2, wrong answer 3].
 def load_questions(filename):
-    """Read a question file and return a matrix of questions.
-
-    Each valid line has 5 parts separated by "|":
-    question, correct answer, wrong 1, wrong 2, wrong 3.
-    Lines that do not have 5 parts (titles, blank lines) are skipped.
-    """
     questions = []
 
     try:
@@ -47,15 +54,13 @@ def load_questions(filename):
     return questions
 
 
-# Calls load_questions() once for each level file (easy, medium, hard).
-# Returns a list with the 3 matrices of questions.
-# If any file is missing or empty, returns an empty list.
+# Functionality: Loads the questions of the three levels.
+# Input: None.
+# Process: Calls load_questions() once for each level file (easy, medium
+#   and hard) and stores each matrix in a list.
+# Output: List with the 3 matrices, or an empty list if any file is
+#   missing or has no questions.
 def load_all_levels():
-    """Load the question file of every level.
-
-    Returns a list of matrices (one per level), or an empty list
-    if any of the files is missing or has no questions.
-    """
     all_levels = []
 
     for filename in LEVEL_FILES:
@@ -67,14 +72,14 @@ def load_all_levels():
     return all_levels
 
 
-# Reads history.txt ,if it exists, and builds a matrix with the old results.
-# Skips damaged lines
-# If the file does not exist, returns an empty history.
+# Functionality: Loads the saved results from the history file.
+# Input: None.
+# Process: Reads history.txt line by line and splits each line by "|".
+#   Skips damaged lines (wrong number of parts or non-numeric values).
+#   If the file does not exist yet, the history stays empty.
+# Output: Matrix with the saved results. Each row = [date, player, level,
+#   correct answers, score, percentage, result].
 def load_history():
-    """Read the saved results from the history file into a matrix.
-
-    Each row = [date, player, level, correct, score, percentage, result]
-    """
     history = []
 
     try:
@@ -90,19 +95,22 @@ def load_history():
     return history
 
 
-# Joins one result row with "|" and adds it at the end of history.txt.
-# Mode "a" (append) keeps the previous results.
+# Functionality: Saves one result in the history file.
+# Input: row (list of strings), the result of one level.
+# Process: Joins the parts of the row with "|" and adds the line at the
+#   end of history.txt (mode "a" keeps the previous results).
+# Output: None (the file is updated).
 def save_result(row):
-    """Add one result row at the end of the history file."""
     with open(HISTORY_FILE, "a", encoding="utf-8") as file:
         file.write(SEPARATOR.join(row) + "\n")
 
 
 # MENU AND INSTRUCTIONS
-
-# Prints the main menu options on the screen.
+# Functionality: Shows the main menu.
+# Input: None.
+# Process: Prints the five options of the menu.
+# Output: None (prints on the screen).
 def show_menu():
-    """Display the main menu."""
     print("\n-------------------------")
     print("      U KNOW ENOUGH?")
     print("-------------------------")
@@ -113,9 +121,12 @@ def show_menu():
     print("5. Exit")
 
 
-# Prints the rules: levels, points, streak bonus and the passing score.
+# Functionality: Shows the rules of the game.
+# Input: None.
+# Process: Prints the levels, the points, the streak bonus and the
+#   percentage needed to pass a level.
+# Output: None (prints on the screen).
 def show_instructions():
-    """Display the rules of the game."""
     print("\n-------------------------")
     print("      INSTRUCTIONS")
     print("-------------------------")
@@ -131,11 +142,12 @@ def show_instructions():
 
 
 # INPUT VALIDATION
-
-# Asks for a menu option and repeats the question until the player, types a whole number between minimum and maximum.
-# Returns the option as an integer.
+# Functionality: Reads a valid menu option.
+# Input: minimum and maximum (integers), the range of valid options.
+# Process: Asks for an option and repeats the question until the player
+#   types a whole number inside the range.
+# Output: The chosen option (integer).
 def read_menu_option(minimum, maximum):
-    """Ask for a whole number between minimum and maximum."""
     option = input("Select an option: ").strip()
 
     while (not option.isdigit() or int(option) < minimum
@@ -147,10 +159,12 @@ def read_menu_option(minimum, maximum):
     return int(option)
 
 
-# Asks for the player's name and repeats until it has 2 to 15 characters, and only letters/spaces.
-# Returns the name with the first letter of each word in capitals.
+# Functionality: Reads a valid player name.
+# Input: None (the name is typed by the player).
+# Process: Asks for the name and repeats until it has 2 to 15 characters
+#   and only letters and spaces.
+# Output: The name (string) with a capital letter in each word.
 def read_player_name():
-    """Ask for a name with only letters and spaces (2 to 15 characters)."""
     name = input("\nEnter your name: ").strip()
 
     while (len(name) < 2 or len(name) > 15
@@ -161,10 +175,11 @@ def read_player_name():
     return name.title()
 
 
-# Shows a message and repeats until the player types Y or N.
-# Returns True if the player typed Y, False if N.
+# Functionality: Reads a Y/N answer.
+# Input: message (string), the question shown to the player.
+# Process: Shows the message and repeats until the player types Y or N.
+# Output: True if the player typed Y, False if the player typed N.
 def read_yes_no(message):
-    """Ask a yes/no question. Return True for Y and False for N."""
     answer = input(message).strip().upper()
 
     while answer != "Y" and answer != "N":
@@ -175,11 +190,13 @@ def read_yes_no(message):
 
 
 # QUESTIONS
-# Prints the question number, the question and its options (A, B, C, D).
-# Asks for an answer and repeats until it is exactly A, B, C or D.
-# And returns the chosen letter in capitals.
+# Functionality: Shows one question and reads the answer.
+# Input: number (int), total (int), question (string) and options (list
+#   with the 4 answers).
+# Process: Prints the question number, the question and the options A, B,
+#   C and D. Asks for an answer and repeats until it is A, B, C or D.
+# Output: The chosen letter (string) in capital letters.
 def ask_question(number, total, question, options):
-    """Show a question with its options and return a valid letter."""
     print("\nQuestion " + str(number) + "/" + str(total))
     print(question)
 
@@ -195,11 +212,13 @@ def ask_question(number, total, question, options):
     return answer
 
 
-# Compares the player's letter with the correct letter.
-# Prints "Correct!" or "Incorrect!" (showing the right answer).
-# Returns True if the answer was correct, False if not.
+# Functionality: Checks if the player's answer is correct.
+# Input: player_answer (letter), correct_letter (letter) and correct_text
+#   (string, the text of the right answer).
+# Process: Compares both letters and prints "Correct!" or "Incorrect!"
+#   (showing the right answer when the player fails).
+# Output: True if the answer was correct, False if not.
 def check_answer(player_answer, correct_letter, correct_text):
-    """Compare the answer with the correct one. Return True if correct."""
     if player_answer == correct_letter:
         print("Correct!")
         return True
@@ -209,24 +228,24 @@ def check_answer(player_answer, correct_letter, correct_text):
     return False
 
 
-# Divides the correct answers by the total questions and multiplies by 100.
-# Returns the percentage.
+# Functionality: Calculates the percentage of correct answers.
+# Input: correct_answers (int) and total_questions (int).
+# Process: Divides the correct answers by the total and multiplies by 100.
+# Output: The percentage (float).
 def calculate_percentage(correct_answers, total_questions):
-    """Return the percentage of correct answers."""
     return (correct_answers / total_questions) * 100
 
 
-# Picks random questions from the level matrix (random.sample).
-# For each question: shuffles the options, finds the correct letter, asks the question and checks the answer.
-# Adds 10 points per correct answer, +5 bonus every 3 correct in a row, and resets the streak when the player fails.
-# Returns the correct answers, the score and how many questions were asked.
+# Functionality: Plays one level of the game.
+# Input: level_name (string) and questions (matrix of the level).
+# Process: Picks random questions with random.sample. For each one it
+#   shuffles the options, finds the correct letter, asks the question and
+#   checks the answer. Each correct answer adds 10 points, and every 3
+#   correct answers in a row add 5 bonus points. A wrong answer resets
+#   the streak.
+# Output: correct answers (int), score (int) and total questions asked
+#   (int).
 def play_level(level_name, questions):
-    """Play one level and return (correct answers, score, total asked).
-
-    random.sample picks the questions of this game without repeating.
-    enumerate gives the question number together with each question.
-    Every STREAK_LENGTH correct answers in a row give a bonus.
-    """
     # https://docs.python.org/3/library/random.html#random.sample
     amount = min(QUESTIONS_PER_LEVEL, len(questions))
     selected = random.sample(questions, amount)
@@ -265,16 +284,14 @@ def play_level(level_name, questions):
 
 
 # RESULTS
-# Calculates incorrect answers and the percentage of the level.
-# Prints correct/incorrect answers, score and percentage.
-# If the player failed, shows how many correct answers were needed.
-# Returns True if the player passed 60% or more, False if not.
+# Functionality: Shows the results of a level.
+# Input: level_name (string), correct_answers (int), score (int) and
+#   total_questions (int).
+# Process: Calculates the incorrect answers and the percentage, and
+#   prints the results. If the player failed, it uses math.ceil to show
+#   how many correct answers were needed.
+# Output: True if the player passed (60% or more), False if not.
 def show_results(level_name, correct_answers, score, total_questions):
-    """Display the results of a level. Return True if the player passed.
-
-    math.ceil rounds up, so we can tell how many correct answers
-    were needed to pass the level.
-    """
     incorrect_answers = total_questions - correct_answers
     percentage = calculate_percentage(correct_answers, total_questions)
 
@@ -302,19 +319,21 @@ def show_results(level_name, correct_answers, score, total_questions):
     return False
 
 
-
 # HISTORY AND RANKING
 # Each row = [date, player, level, correct, score, percentage, result]
-# Takes one history row and returns its score as an integer.
+# Functionality: Gets the score of a history row.
+# Input: row (list), one row of the history.
+# Process: Converts the score (position 4 of the row) to an integer.
+# Output: The score (int). It is used as the sorting key in the ranking.
 def get_score(row):
-    """Return the score of a history row as a number (sorting key)."""
     return int(row[4])
 
 
-# Adds the score of every row in the history and divides by the number of rows.
-# Returns the average score.
+# Functionality: Calculates the average score of the history.
+# Input: history (matrix with the saved results).
+# Process: Adds the score of every row and divides by the number of rows.
+# Output: The average score (float).
 def calculate_average_score(history):
-    """Return the average score of all the rows in the history."""
     total = 0
 
     for row in history:
@@ -323,27 +342,33 @@ def calculate_average_score(history):
     return total / len(history)
 
 
-# Prints one history row as a line of the table, with aligned columns.
+# Functionality: Prints one result as a line of the table.
+# Input: row (list), one row of the history.
+# Process: Prints each part of the row in a column of fixed width.
+# Output: None (prints on the screen).
 def print_history_row(row):
-    """Print one history row as a table line."""
     print(row[0].ljust(18) + row[1].ljust(16) + row[2].ljust(9)
           + row[3].ljust(9) + row[4].ljust(7)
           + (row[5] + "%").ljust(6) + row[6])
 
 
-# Prints the column titles of the table and a separator line.
+# Functionality: Prints the header of the history table.
+# Input: None.
+# Process: Prints the column titles and a separator line.
+# Output: None (prints on the screen).
 def print_table_header():
-    """Print the header of the history table."""
     print("DATE".ljust(18) + "PLAYER".ljust(16) + "LEVEL".ljust(9)
           + "CORRECT".ljust(9) + "SCORE".ljust(7) + "%".ljust(6)
           + "RESULT")
     print("-" * 70)
 
 
-# Prints all the saved results as a table, plus the average score.
-# If there are no results yet, shows a message instead.
+# Functionality: Shows all the saved results.
+# Input: history (matrix with the saved results).
+# Process: Prints every row as a table and then the average score. If
+#   the history is empty, it shows a message.
+# Output: None (prints on the screen).
 def show_history(history):
-    """Display every saved result and the average score."""
     print("\n-------------------------")
     print("      GAME HISTORY")
     print("-------------------------")
@@ -361,11 +386,13 @@ def show_history(history):
     print("\nAverage score per level:", f"{average:.1f}", "points")
 
 
-# Sorts the history from the highest to the lowest score (sorted).
-# Prints the 5 best results with their position (1 to 5).
-# If there are no results yet, shows a message instead.
+# Functionality: Shows the 5 best results.
+# Input: history (matrix with the saved results).
+# Process: Sorts the history from the highest to the lowest score with
+#   sorted() and prints the first 5 rows with their position. If the
+#   history is empty, it shows a message.
+# Output: None (prints on the screen).
 def show_ranking(history):
-    """Display the 5 best results, sorted by score."""
     print("\n-------------------------")
     print("      TOP 5 RANKING")
     print("-------------------------")
@@ -385,17 +412,14 @@ def show_ranking(history):
 
 
 # GAME FLOW
-
-# Asks for the player's name and plays the levels in order.
-# After each level: shows the results, adds a row to the history matrix and saves it in history.txt.
-# If the player passes, asks whether to continue to the next level.
-# The game ends when the player fails, stops, or finishes all levels.
+# Functionality: Runs a complete game (one player, up to three levels).
+# Input: all_levels (list of matrices) and history (matrix of results).
+# Process: Asks for the player's name and plays the levels in order. After
+#   each level it shows the results, adds a row to the history and saves
+#   it in the file. If the player passes, it asks whether to continue.
+#   The game ends when the player fails, stops or finishes all levels.
+# Output: None (the history is updated and the total score is printed).
 def play_game(all_levels, history):
-    """Play the levels in order until the player fails or quits.
-
-    After each level the result is added to the history matrix
-    and saved in the history file.
-    """
     player_name = read_player_name()
     print("\nGood luck,", player_name + "!")
 
@@ -436,11 +460,13 @@ def play_game(all_levels, history):
     print("\nTotal score of this game:", total_score, "points")
 
 
-# Loads the question files and the saved history.
-# Shows the menu again and again until the player chooses Exit.
-# Option 1 plays, 2 shows instructions, 3 history, 4 ranking, 5 exits.
+# Functionality: Main program of the game.
+# Input: None (the options are typed by the player).
+# Process: Loads the question files and the saved history. Then it shows
+#   the menu again and again (while True) until the player chooses Exit:
+#   1 plays, 2 shows the instructions, 3 the history, 4 the ranking.
+# Output: None (the program closes when the player chooses Exit).
 def main():
-    """Load the data and show the main menu until the player exits."""
     all_levels = load_all_levels()
 
     if len(all_levels) == 0:
@@ -448,9 +474,8 @@ def main():
         return
 
     history = load_history()
-    option = 0
 
-    while option != 5:
+    while True:
         show_menu()
         option = read_menu_option(1, 5)
 
@@ -464,6 +489,7 @@ def main():
             show_ranking(history)
         elif option == 5:
             print("\nThanks for playing U know enough?")
+            break
 
 
 if __name__ == "__main__":
