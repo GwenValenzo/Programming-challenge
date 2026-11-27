@@ -7,6 +7,8 @@
 # one. Every result is saved in a history file, and the player can check
 # the game history and a Top 5 ranking.
 
+#Hope you like it teacher, i gave it all :) 
+
 import math
 import random
 from datetime import datetime
